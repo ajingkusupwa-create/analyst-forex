@@ -111,11 +111,12 @@ def main() -> None:
     if new_signals:
         for message in new_signals:
             send_discord(message)
-    elif os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch":
+    elif not failures:
         send_discord(
-            "FOREX SMC ANALYZER — TEST PEMINDAIAN\n"
-            f"Pemindaian selesai pada {now} UTC. Belum ada setup baru yang memenuhi seluruh syarat SMC.\n"
-            "Jika tidak ada error di GitHub Actions, koneksi Discord dan pemindai berjalan."
+            "FOREX SMC ANALYZER — TIDAK ADA SINYAL\n"
+            f"Waktu pemindaian: {now} UTC\n\n"
+            "Belum ada setup BUY/SELL baru yang memenuhi seluruh syarat SMC.\n"
+            "Pemindaian selesai tanpa error. Bot akan memindai kembali sesuai jadwal."
         )
 
     if failures:
